@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link type="text/css" rel="stylesheet" href="~/css/site.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/site.css" />
+    <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
+<body class="container">
+    <header>
+        <ul>
+            <li>
+                <a href="@Url.Action("Index", "Home", null)">
+                    <img id="navLogo" src="~/images/lion.png" />
+                </a>
+            </li>
+            <li>
+                @Html.ActionLink("About", "Index", "About");
+            </li>
+            <li>
+                @Html.ActionLink("Contatcs", "Index", "Contacts");
+            </li>
+            <li>
+                @Html.ActionLink("Projects", "Index", "Projects");
+            </li>
+        </ul>
+    </header>
+    <div class="content">
+        @RenderBody()
+    </div>
+    <footer>
+        <div class="footerContent">
+            <div>Anton Nordgren</div>
+            <div>@DateTime.Now.ToString("dd MMMM yyyy")</div>
+        </div>
+    </footer>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

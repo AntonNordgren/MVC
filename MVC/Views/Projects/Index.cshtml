@@ -1,0 +1,14 @@
+﻿@model MVC.Models.Projectspage
+
+<div>
+    <h1>@Model.header</h1>
+
+    @foreach(var project in Model.projects)
+    {
+        <div>
+            <h3><a href="@project.url">@project.name</a></h3>
+            <h4>@project.description</h4>
+        </div>
+    }
+
+</div>
