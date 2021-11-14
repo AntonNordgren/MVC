@@ -1,0 +1,31 @@
+﻿@model MVC.Models.FeverCheckViewModel
+
+@{ 
+    ViewBag.Title = "FeverCheck";
+    var fever = ViewData.Model;
+    ViewBag.placeholder = "";
+}
+
+@using (Html.BeginForm("FeverCheck", "Doctor", FormMethod.Post))
+{
+    <div>
+        <h1>Doctor</h1>
+        @Html.TextBoxFor(temp => temp.Temp,
+        new { @Type = "number", placeholder = "Temperature", @class = "form-controll" })
+    </div>
+    <br />
+    <button class="btn btn-success" type="submit">Check</button>
+}
+
+<div>
+    <h1>Result</h1>
+    <div>
+        @if(fever.Temp != null)
+            {
+            <div>
+                @fever.Temp is
+                @fever.Result
+            </div>
+            }
+    </div>
+</div>

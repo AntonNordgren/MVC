@@ -15,4 +15,24 @@ namespace MVC.Controllers
             return View(sideContent);
         }
     }
+
+    public class DoctorController : Controller
+    {
+        [HttpGet]
+        public IActionResult FeverCheck()
+        {
+            return View(new FeverCheckViewModel(null, ""));
+        }
+
+        [HttpPost]
+        public IActionResult FeverCheck(int? temp)
+        {
+            if(temp != null)
+            {
+                string stringResult = UtilityFeverCheck.CheckFever(temp);
+                return View(new FeverCheckViewModel(temp, stringResult));
+            }
+            return View(new FeverCheckViewModel(null, ""));
+        }
+    }
 }
