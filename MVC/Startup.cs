@@ -20,6 +20,7 @@ namespace MVC
 
             services.AddDistributedMemoryCache();
 
+
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromSeconds(10);

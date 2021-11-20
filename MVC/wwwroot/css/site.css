@@ -79,3 +79,11 @@ footer {
 .doctorForm{
     width: 220px !important;
 }
+
+.search-person-form{
+    width: 400px;
+}
+
+.create-person-form {
+    width: 400px;
+}
