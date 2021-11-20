@@ -1,0 +1,24 @@
+﻿@model MVC.Models.Person
+
+<div class="personContainer row">
+
+    <div>
+        <h4>@Model.Name</h4>
+    </div>
+
+    <div>
+        <h4>@Model.PhoneNr</h4>
+    </div>
+
+    <div>
+       <h4>@Model.City</h4>
+    </div>
+
+    <div>
+        <button class="btn btn-danger btn-md" href="#"
+                onclick="location.href = '@Url.Action("DeletePerson","People", new { id=Model.PersonId })' ">
+            Delete
+        </button>
+    </div>
+
+</div>

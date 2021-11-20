@@ -87,3 +87,40 @@ footer {
 .create-person-form {
     width: 400px;
 }
+
+/*.personHeader {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: #1F2833;
+    color: white;
+}
+
+.personHeader div {
+    width: 25%;
+}*/
+
+/*.personHeader div h3 {
+    margin-top: 10px !important;
+}*/
+
+.personContainer {
+    display: flex;
+    background-color: #1F2833;
+    color: white;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    box-shadow: 3px 3px 3px grey;
+}
+
+.personContainer div {
+    width: 25%;
+    padding: 20px;
+    margin: auto;
+    text-align: center;
+}
+
+.personContainer div h4 {
+    margin: 0 !important;
+}
