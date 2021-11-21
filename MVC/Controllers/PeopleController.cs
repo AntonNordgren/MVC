@@ -18,6 +18,12 @@ namespace MVC.Controllers
                 PeopleListView = peopleMemory.Read()
             };
 
+            if(peopleViewModel.PeopleListView.Count == 0)
+            {
+                peopleMemory.SeedPeople();
+                peopleViewModel.PeopleListView = peopleMemory.Read();
+            }
+
             return View(peopleViewModel);
         }
 

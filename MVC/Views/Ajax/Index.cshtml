@@ -1,0 +1,42 @@
+﻿<div>
+    <h1>Ajax</h1>
+
+    <br />
+
+    <div class="container">
+        <h4 id="messageHeader"></h4>
+        <input type="button" class="btn btn-primary btn-sm"
+               onclick="getAllPersons()" value="People" />
+
+        <input type="button" class="btn btn-primary btn-sm"
+               onclick="getPersonById()" value="Details" />
+
+        <input type="button" class="btn btn-primary btn-sm"
+               onclick="deletePersonById()" value="Delete" />
+
+        <input id="idInputField" type="number" class="" placeholder="Enter Id" />
+    </div>
+
+    <div class="container-fluid">
+
+        <div id="PeopleList"></div>
+
+
+
+
+
+
+
+
+
+
+        @*@if (Model != null)
+            {
+                @foreach (var person in Model.PeopleListView)
+                {
+                    <partial name="~/Views/Shared/_PersonPartialView.cshtml" model=@person />
+                }
+            }*@
+    </div>
+
+</div>

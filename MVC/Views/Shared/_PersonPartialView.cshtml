@@ -1,24 +1,48 @@
-﻿@model MVC.Models.Person
+﻿@model List<MVC.Models.Person>
+
 
 <div class="personContainer row">
 
     <div>
-        <h4>@Model.Name</h4>
+        <h4>Id</h4>
     </div>
 
     <div>
-        <h4>@Model.PhoneNr</h4>
+        <h4>Name</h4>
     </div>
 
     <div>
-       <h4>@Model.City</h4>
+        <h4>Phone Number</h4>
     </div>
 
     <div>
-        <button class="btn btn-danger btn-md" href="#"
-                onclick="location.href = '@Url.Action("DeletePerson","People", new { id=Model.PersonId })' ">
-            Delete
-        </button>
+        <h4>City</h4>
     </div>
 
 </div>
+
+
+@foreach (var person in Model)
+{
+
+    <div class="personContainer row">
+
+        <div>
+            <h4>@person.PersonId</h4>
+        </div>
+
+        <div>
+            <h4>@person.Name</h4>
+        </div>
+
+        <div>
+            <h4>@person.PhoneNr</h4>
+        </div>
+
+        <div>
+            <h4>@person.City</h4>
+        </div>
+
+
+    </div>
+}
