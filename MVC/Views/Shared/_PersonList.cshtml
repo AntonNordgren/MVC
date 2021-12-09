@@ -1,0 +1,40 @@
+﻿@model IEnumerable<MVC.Models.Person>
+
+<div class="container-fluid">
+
+    <div class="personContainer row">
+
+        <div>
+            <h4>Id</h4>
+        </div>
+
+        <div>
+            <h4>Name</h4>
+        </div>
+
+        <div>
+            <h4>Phone Number</h4>
+        </div>
+
+        <div>
+            <h4>City</h4>
+        </div>
+
+    </div>
+
+    @if (Model != null)
+    {
+        @foreach (var person in Model)
+        {
+            <partial name="~/Views/Shared/_PersonPartialView.cshtml" model=@person />
+        }
+    }
+
+    @*@if (Model != null)
+        {
+            @foreach (var person in Model.PeopleListView)
+            {
+                <partial name="~/Views/Shared/_PersonPartialView.cshtml" model=@person />
+            }
+        }*@
+</div>

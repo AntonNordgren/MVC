@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MVC.Data;
 using MVC.Models;
 using System;
 using System.Collections.Generic;
@@ -10,18 +11,32 @@ namespace MVC.Controllers
     public class PeopleController : Controller
     {
 
+        private readonly ApplicationDbContext _dbContext;
+
+        public PeopleController(ApplicationDbContext context)
+        {
+            _dbContext = context;
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
-            PeopleMemory peopleMemory = new PeopleMemory();
-            PeopleViewModel peopleViewModel = new PeopleViewModel() {
-                PeopleListView = peopleMemory.Read()
+            PeopleViewModel peopleViewModel = new PeopleViewModel()
+            {
+                PeopleListView = _dbContext.People.ToList()
             };
 
-            if(peopleViewModel.PeopleListView.Count == 0)
+            if (_dbContext.People.Count() == 0)
             {
-                peopleMemory.SeedPeople();
-                peopleViewModel.PeopleListView = peopleMemory.Read();
+                var listOfPeople = new List<Person> {
+                    new Person { Name = "Anton", PhoneNr = "123123123", City = "Gothenburg"},
+                    new Person { Name = "Kalle", PhoneNr = "321321321", City = "Malmö"},
+                    new Person { Name = "Pelle", PhoneNr = "231231231", City = "Stockholm"},
+                };
+
+                listOfPeople.ForEach(person => _dbContext.Add(person));
+                _dbContext.SaveChanges();
+
             }
 
             return View(peopleViewModel);
@@ -30,61 +45,50 @@ namespace MVC.Controllers
         [HttpPost]
         public IActionResult Index(PeopleViewModel viewModel)
         {
-            PeopleMemory peopleMemory = new PeopleMemory();
-            viewModel.PeopleListView.Clear();
 
-            foreach (Person person in peopleMemory.Read())
+            if (viewModel.FilterString != null)
             {
+                viewModel.PeopleListView = _dbContext.People.Where(
+                    person => person.Name.Contains(viewModel.FilterString) ||
+                    person.City.Contains(viewModel.FilterString)).ToList();
 
-                if(viewModel.FilterString != null)
-                {
-                    if (person.Name.Contains(viewModel.FilterString, StringComparison.OrdinalIgnoreCase) ||
-                        person.City.Contains(viewModel.FilterString, StringComparison.OrdinalIgnoreCase))
-                    {
-                        viewModel.PeopleListView.Add(person);
-                    }
-                }
-                else
-                {
-                    viewModel.PeopleListView = peopleMemory.Read();
-                    return View(viewModel);
-                }
+                return View(viewModel);
+
+            }
+            else
+            {
+                viewModel.PeopleListView = _dbContext.People.ToList();
+                return View(viewModel);
             }
 
-            return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult CreatePerson(CreatePersonViewModel createPersonViewModel)
+        public IActionResult CreatePerson(Person newPerson)
         {
-            PeopleViewModel newViewModel = new PeopleViewModel();
-            PeopleMemory peopleMemory = new PeopleMemory();
-
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                newViewModel.Name = createPersonViewModel.Name;
-                newViewModel.PhoneNr = createPersonViewModel.PhoneNr;
-                newViewModel.City = createPersonViewModel.City;
-
-                newViewModel.PeopleListView = peopleMemory.Read();
-
-                peopleMemory.Create(createPersonViewModel.Name,
-                    createPersonViewModel.PhoneNr, createPersonViewModel.City);
-
-                return View("Index", newViewModel);
+                _dbContext.Add<Person>(newPerson);
+                _dbContext.SaveChanges();
             }
 
-            return View("Index", newViewModel);
+            PeopleViewModel newPeopleViewModel = new PeopleViewModel()
+            {
+                PeopleListView = _dbContext.People.ToList(),
+                FilterString = ""
+            };
+
+            return View("Index", newPeopleViewModel);
         }
 
         public IActionResult DeletePerson(int id)
         {
-            PeopleMemory peopleMemory = new PeopleMemory();
-            Person targetPerson = peopleMemory.Read(id);
-            peopleMemory.Delete(targetPerson);
+            Person targetPerson = _dbContext.People.Find(id);
+
+            _dbContext.Remove(targetPerson);
+            _dbContext.SaveChanges();
 
             return RedirectToAction("Index");
         }
-
     }
 }

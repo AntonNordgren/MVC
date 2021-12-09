@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MVC.Models
 {
-    public class PeopleViewModel : CreatePersonViewModel
+    public class PeopleViewModel : Person
     {
         public List<Person> PeopleListView { get; set; }
         public string FilterString { get; set; }

@@ -8,7 +8,6 @@ namespace MVC.Models
 {
     public class CreatePersonViewModel
     {
-
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "Please enter Name.")]
         public string Name { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,18 +8,22 @@ namespace MVC.Models
 {
     public class Person
     {
-        private readonly int _PersonId;
-        public int PersonId { get { return _PersonId; } }
-        public string Name { get; set; }
-        public string PhoneNr { get; set; }
-        public string City { get; set; }
+        [Key]
+        public int PersonId { get; set; }
 
-        public Person(int id, string name, string phoneNr, string city)
-        {
-            _PersonId = id;
-            Name = name;
-            PhoneNr = phoneNr;
-            City = city;
-        }
+        //[Required]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "Please enter Name.")]
+        public string Name { get; set; }
+
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "Please enter PhoneNumber.")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Invalid Mobile Number.")]
+        public string PhoneNr { get; set; }
+
+        //[Required]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "Please enter City.")]
+        public string City { get; set; }
     }
 }

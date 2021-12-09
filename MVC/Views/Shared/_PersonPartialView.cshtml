@@ -1,28 +1,31 @@
-﻿@model List<MVC.Models.Person>
+﻿@model MVC.Models.Person
 
-
-<div class="personContainer row">
+<div class="personContainer row personListItem">
 
     <div>
-        <h4>Id</h4>
+        <h4>@Model.PersonId</h4>
     </div>
 
     <div>
-        <h4>Name</h4>
+        <h4>@Model.Name</h4>
     </div>
 
     <div>
-        <h4>Phone Number</h4>
+        <h4>@Model.PhoneNr</h4>
     </div>
 
     <div>
-        <h4>City</h4>
+        <h4>@Model.City</h4>
+    </div>
+
+    <div>
+        <a href="@Url.Action("DeletePerson", "People", new { id = Model.PersonId })" class="btn btn-danger btn-xs">Delete</a>
     </div>
 
 </div>
 
 
-@foreach (var person in Model)
+@*@foreach (var person in Model)
 {
 
     <div class="personContainer row">
@@ -45,4 +48,4 @@
 
 
     </div>
-}
+}*@
