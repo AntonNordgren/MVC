@@ -7,14 +7,19 @@ using System.Threading.Tasks;
 
 namespace MVC.Models
 {
-    public class Person
+    public class City
     {
+        [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
 
-        [ForeignKey("CityId")]
-        public City City { get; set; }
-        public int CityId { get; set; }
+        [Required]
+        public string Name { get; set; }
+        public ICollection<Person> Inhabitants { get; set; }
+
+        [Required]
+        [ForeignKey("CountryId")]
+        public int CountryId { get; set; }
+
+        public Country Country { get; set; }
     }
 }

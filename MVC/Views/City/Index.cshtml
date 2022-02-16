@@ -1,0 +1,7 @@
+﻿@model MVC.ViewModels.CitiesViewModel
+
+<h1>All Cities</h1>
+@foreach (var City in Model.Cities)
+{
+    <h2>@City.Name</h2>
+}

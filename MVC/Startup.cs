@@ -81,6 +81,8 @@ namespace MVC
                 );
 
             });
+
+            ApplicatoinDBInitializer.Seed(app);
         }
     }
 }

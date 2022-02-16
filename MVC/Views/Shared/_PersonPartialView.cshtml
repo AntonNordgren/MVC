@@ -3,7 +3,7 @@
 <div class="personContainer row personListItem">
 
     <div>
-        <h4>@Model.PersonId</h4>
+        <h4>@Model.Id</h4>
     </div>
 
     <div>
@@ -11,21 +11,21 @@
     </div>
 
     <div>
-        <h4>@Model.PhoneNr</h4>
+        <h4>@Model.PhoneNumber</h4>
     </div>
 
     <div>
-        <h4>@Model.City</h4>
+        <h4>@Model.City.Name</h4>
     </div>
 
     <div>
-        <a href="@Url.Action("DeletePerson", "People", new { id = Model.PersonId })" class="btn btn-danger btn-xs">Delete</a>
+        <a href="@Url.Action("DeletePerson", "People", new { id = Model.Id })" class="btn btn-danger btn-xs">Delete</a>
     </div>
 
 </div>
 
 
-@*@foreach (var person in Model)
+@*foreach (var person in Model.)
 {
 
     <div class="personContainer row">

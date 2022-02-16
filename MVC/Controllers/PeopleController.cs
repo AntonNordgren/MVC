@@ -19,48 +19,65 @@ namespace MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(PeopleViewModel ViewModel)
         {
-            PeopleViewModel peopleViewModel = new PeopleViewModel()
+            //PeopleViewModel peopleViewModel = new PeopleViewModel()
+            //{
+            //    PeopleListView = _dbContext.People.ToList()
+            //};
+
+            //if (_dbContext.People.Count() == 0)
+            //{
+            //    var listOfCities = new List<City>
+            //    {
+            //        new City { Id = 1, Name = "Gothenburg",  }
+            //    }
+
+            //    var listOfPeople = new List<Person> {
+            //        new Person { Name = "Anton", PhoneNr = "123123123", },
+            //        new Person { Name = "Kalle", PhoneNr = "321321321", },
+            //        new Person { Name = "Pelle", PhoneNr = "231231231", },
+            //    };
+
+            //    listOfPeople.ForEach(person => _dbContext.Add(person));
+            //    _dbContext.SaveChanges();
+
+            //}
+
+            //return View(peopleViewModel);
+
+            var allPeople = _dbContext.People.ToList();
+
+            foreach(var person in allPeople)
             {
-                PeopleListView = _dbContext.People.ToList()
-            };
-
-            if (_dbContext.People.Count() == 0)
-            {
-                var listOfPeople = new List<Person> {
-                    new Person { Name = "Anton", PhoneNr = "123123123", City = "Gothenburg"},
-                    new Person { Name = "Kalle", PhoneNr = "321321321", City = "Malmö"},
-                    new Person { Name = "Pelle", PhoneNr = "231231231", City = "Stockholm"},
-                };
-
-                listOfPeople.ForEach(person => _dbContext.Add(person));
-                _dbContext.SaveChanges();
-
+                person.City = _dbContext.City.Find(person.CityId);
             }
 
-            return View(peopleViewModel);
+            ViewModel.PeopleListView = allPeople;
+
+            return View(ViewModel);
         }
 
         [HttpPost]
-        public IActionResult Index(PeopleViewModel viewModel)
+        public IActionResult Index()
         {
 
-            if (viewModel.FilterString != null)
-            {
-                viewModel.PeopleListView = _dbContext.People.Where(
-                    person => person.Name.Contains(viewModel.FilterString) ||
-                    person.City.Contains(viewModel.FilterString)).ToList();
+            //if (viewModel.FilterString != null)
+            //{
+            //    viewModel.PeopleListView = _dbContext.People.Where(
+            //        person => person.Name.Contains(viewModel.FilterString) ||
+            //        person.City.Name.Contains(viewModel.FilterString)).ToList();
 
-                return View(viewModel);
+            //    return View(viewModel);
 
-            }
-            else
-            {
-                viewModel.PeopleListView = _dbContext.People.ToList();
-                return View(viewModel);
-            }
-
+            //}
+            //else
+            //{
+            //    viewModel.PeopleListView = _dbContext.People.ToList();
+            //    return View(viewModel);
+            //}
+            
+            return View();
         }
 
         [HttpPost]

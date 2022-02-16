@@ -1,0 +1,7 @@
+﻿@model MVC.ViewModels.CountriesViewModel
+
+<h1>All Countries</h1>
+@foreach (var Country in Model.Countries)
+{
+    <h2>@Country.Name</h2>
+}

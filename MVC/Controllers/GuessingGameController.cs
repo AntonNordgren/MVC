@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace MVC.Controllers
 {
