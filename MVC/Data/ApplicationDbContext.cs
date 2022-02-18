@@ -18,8 +18,29 @@ namespace MVC.Data
         public DbSet<Country> Country { get; set; }
         public DbSet<City> City { get; set; }
 
+        public DbSet<Language> Language { get; set; }
+        public DbSet<PersonLanguage> PersonLanguage { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<PersonLanguage>().HasKey(pl => new { pl.PersonId, pl.LanguageId });
+
+            modelBuilder.Entity<PersonLanguage>()
+                .HasOne<Person>(pl => pl.Person)
+                .WithMany(l => l.Person_Language)
+                .HasForeignKey(pl => pl.PersonId);
+
+            modelBuilder.Entity<PersonLanguage>()
+                .HasOne<Language>(pl => pl.Language)
+                .WithMany(p => p.Person_Language)
+                .HasForeignKey(pl => pl.LanguageId);
+
+            // Languges
+            modelBuilder.Entity<Language>().HasData(new Language { Id = 1, Name = "Swedish" });
+            modelBuilder.Entity<Language>().HasData(new Language { Id = 2, Name = "English" });
+            modelBuilder.Entity<Language>().HasData(new Language { Id = 3, Name = "German" });
+
             // Countries
             modelBuilder.Entity<Country>().HasData(new Country { Id = 1, Name = "Sweden" });
             modelBuilder.Entity<Country>().HasData(new Country { Id = 2, Name = "England" });
@@ -44,44 +65,20 @@ namespace MVC.Data
             modelBuilder.Entity<Person>().HasData(new Person { Id = 8, Name = "Benny", PhoneNumber = "0766-444222", CityId = 5 });
             modelBuilder.Entity<Person>().HasData(new Person { Id = 9, Name = "Julia", PhoneNumber = "0751-555333", CityId = 6 });
 
+            // PersonLanguages
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { PersonId = 1, LanguageId = 1 });
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { PersonId = 2, LanguageId = 1 });
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { PersonId = 3, LanguageId = 1 });
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { PersonId = 4, LanguageId = 2 });
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { PersonId = 5, LanguageId = 2 });
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { PersonId = 6, LanguageId = 2 });
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { PersonId = 7, LanguageId = 3 });
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { PersonId = 8, LanguageId = 3 });
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { PersonId = 9, LanguageId = 3 });
 
-
-
-
-
-
-
-
-            // Countries
-            //modelBuilder.Entity<Country>().HasData(new Country { Name = "Sweden" });
-            //modelBuilder.Entity<Country>().HasData(new Country { Name = "Norway" });
-            //modelBuilder.Entity<Country>().HasData(new Country { Name = "Finland" });
-
-            // Cities
-            //modelBuilder.Entity<City>().HasData(new City { Name = "Stockholm", CountryId = 1 });
-            //modelBuilder.Entity<City>().HasData(new City { Name = "Gothenburg", CountryId = 1 });
-            //modelBuilder.Entity<City>().HasData(new City { Name = "Malmö", CountryId = 1 });
-
-            //modelBuilder.Entity<City>().HasData(new City { Name = "Oslo", CountryId = 2 });
-            //modelBuilder.Entity<City>().HasData(new City { Name = "Bergen", CountryId = 2 });
-            //modelBuilder.Entity<City>().HasData(new City { Name = "Stavanger", CountryId = 2 });
-
-            //modelBuilder.Entity<City>().HasData(new City { Name = "Helsinki", CountryId = 3 });
-            //modelBuilder.Entity<City>().HasData(new City { Name = "Espoo", CountryId = 3 });
-            //modelBuilder.Entity<City>().HasData(new City { Name = "Tampere", CountryId = 3 });
-
-            // People
-
-            // modelBuilder.Entity<Person>().HasData(new Person { PersonId = 1, Name = "Anton", PhoneNr = "123123123" });
-
-
-            // var City1 = new City { Id = 1, Name = "Gothenburg", }
-
-            // modelBuilder.Entity<Person>().
-
-            //modelBuilder.Entity<Person>().HasData(new Person { PersonId = 1, Name = "Anton", PhoneNr = "123123123", City = new City { Id = 1, Name = "Gothenburg" } });
-            //modelBuilder.Entity<Person>().HasData(new Person { PersonId = 2, Name = "Kalle", PhoneNr = "231231231", City = new City { Id = 2, Name = "Malmö" } });
-            //modelBuilder.Entity<Person>().HasData(new Person { PersonId = 3, Name = "Pelle", PhoneNr = "321321321", City = new City { Id = 3, Name = "Stockholm" } });
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { PersonId = 1, LanguageId = 2 });
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { PersonId = 2, LanguageId = 2 });
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { PersonId = 2, LanguageId = 3 });
         }
     }
 }

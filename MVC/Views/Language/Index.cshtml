@@ -1,0 +1,60 @@
+﻿@model MVC.ViewModels.LanguageViewModel
+
+<h2>Language Page</h2>
+
+<form asp-controller="Language" asp-action="AddLanguage" method="post">
+    <div class="form-group">
+        <label asp-for="NewLanguageInput" for="exampleInputEmail1">Add new Language</label>
+        <input asp-for="NewLanguageInput" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter new Language">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Language</button>
+</form>
+
+<form asp-controller="Language" asp-action="AddLanguageToPerson" method="post" class="language-form-container">
+
+    <h3>Add Language to Person</h3>
+
+    <div class="language-form-select-container">
+        <label>Person</label>
+        <select asp-for="PersonId" class="form-select" aria-label="Default select example">
+            @foreach (var person in Model.People)
+            {
+                <option value=@person.Id>@person.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="language-form-select-container">
+        <label>Language</label>
+        <select asp-for="LanguageId" class="form-select" aria-label="Default select example">
+            @foreach (var languge in Model.Languages)
+            {
+                <option value=@languge.Id>@languge.Name</option>
+            }
+        </select>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Add</button>
+
+</form>
+
+<div class="language-table-container">
+    <table class="table table-bordered table-striped table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Language</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.PersonLanguage)
+            {
+                <tr>
+                    <th>@item.Person.Name</th>
+                    <th>@item.Language.Name</th>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

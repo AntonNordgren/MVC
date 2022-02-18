@@ -103,3 +103,23 @@ footer {
 .personContainer div h4 {
     margin: 0 !important;
 }
+
+.language-form-container {
+    width: 300px;
+}
+
+.language-form-select-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.language-form-button-container {
+    position: relative;
+    top: 10px;
+    bottom: 10px;
+}
+
+.language-table-container {
+    position: relative;
+    top: 20px;
+}
